@@ -1,32 +1,28 @@
 import React from 'react';
 
 class App extends React.Component {
-   constructor(props) {
-      super(props);
+	constructor() {
+		super();
 
-      this.state = {
-         header: "Header from state...",
-         content: "Content from state..."
-      }
-   }
+		this.state = {
+			data: []
+		}
 
-   render() {
-      return (
-         <div>
-            <Header headerProp= {this.state.header} /> {/* this gets the data from the state*/}
-        	<Header headerProp= "this data is added from a string"/>
-            <h2>{this.state.content}</h2>
-         </div>
-      );
-   }
-}
+		this.setStateHandler = this.setStateHandler.bind(this);
+	}
 
-// This class uses props
-class Header extends React.Component {
+	setStateHandler() {
+		var item = "setState ... ";
+		var myArray = this.state.data;
+		myArray.push(item);
+		this.setState({data: myArray})
+	}
+
 	render() {
 		return (
 			<div>
-				<h1>{this.props.headerProp}</h1>
+				<button onClick={this.setStateHandler}>set state</button>
+				<h4>State array: {this.state.data}</h4>
 			</div>
 		);
 	}
