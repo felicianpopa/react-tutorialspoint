@@ -9,6 +9,7 @@ class App extends React.Component {
 		}
 
 		this.setStateHandler = this.setStateHandler.bind(this);
+		this.forceUpdateHandler = this.forceUpdateHandler.bind(this)
 	}
 
 	setStateHandler() {
@@ -18,11 +19,18 @@ class App extends React.Component {
 		this.setState({data: myArray})
 	}
 
+	forceUpdateHandler() {
+		this.forceUpdate();
+	}
+
 	render() {
 		return (
 			<div>
 				<button onClick={this.setStateHandler}>set state</button>
 				<h4>State array: {this.state.data}</h4>
+
+				<button onClick={this.forceUpdateHandler}>force update</button>
+				<h4>Random number: {Math.random()}</h4>
 			</div>
 		);
 	}
