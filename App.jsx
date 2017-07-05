@@ -1,64 +1,41 @@
 import React from 'react';
 
 class App extends React.Component {
-	constructor() {
+	constructor () {
 		super();
-
 		this.state = {
-			data: 0
+			data: 'Initial data ...'
 		}
 
-		this.setNewNumber = this.setNewNumber.bind(this);
+		this.updateState = this.updateState.bind(this)
 	}
 
-	setNewNumber() {
-		this.setState({data: this.state.data + 1})
+	updateState(e) {
+		this.setState({data: e.target.value});
 	}
 
 	render() {
 		return (
 			<div>
-				<button onClick={this.setNewNumber}>Increment</button>
-				<Content myNumber={this.state.data}></Content>
+				<input type="text" value = {this.state.data} onChange={this.updateState}/>
+				<h2>{this.state.data}</h2>
+
+
+				<Content myDataProp = {this.state.data}
+					updateStateProp = {this.updateState}></Content>
 			</div>
-		);
+		)
 	}
 }
 
 class Content extends React.Component {
-
-	componentWillMount() {
-		alert('Component WILL MOUNT!')
-	}
-
-	componentDidMount() {
-		alert('Component DID MOUNT!')
-	}
-
-	componentWillReceiveProps(newProps) {
-		console.log('Component WILL RECIEVE PROPS!')
-	}
-
-	shouldComponentUpdate(newProps, newState) {
-		return true;
-	}
-
-	componentWillUpdate(nextProps, nextState) {
-		console.log('Component WILL UPDATE!');
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		console.log('Component DID UPDATE!')
-	}
-
-	componentWillUnmount() {
-		console.log('Component WILL UNMOUNT!')
-	}
-
 	render() {
 		return (
-			<h3>{this.props.myNumber}</h3>
-			)
+			<div>
+				<input type="text" value={this.props.myDataProp} onChange={this.props.updateStateProp}/>
+				<h3>{this.props.myDataProp}</h3>
+			</div>
+		)
 	}
 }
 
