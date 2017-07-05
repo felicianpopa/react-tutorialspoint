@@ -1,48 +1,64 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 
 class App extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
-			data: []
+			data: 0
 		}
 
-		this.setStateHandler = this.setStateHandler.bind(this);
-		this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
-		this.findDomNodeHandler = this.findDomNodeHandler.bind(this);
+		this.setNewNumber = this.setNewNumber.bind(this);
 	}
 
-	setStateHandler() {
-		var item = "setState ... ";
-		var myArray = this.state.data;
-		myArray.push(item);
-		this.setState({data: myArray})
-	}
-
-	forceUpdateHandler() {
-		this.forceUpdate();
-	}
-
-	findDomNodeHandler() {
-		var myDiv = document.getElementById('myDiv');
-		ReactDom.findDOMNode(myDiv).style.color = 'green';
+	setNewNumber() {
+		this.setState({data: this.state.data + 1})
 	}
 
 	render() {
 		return (
 			<div>
-				<button onClick={this.setStateHandler}>set state</button>
-				<h4>State array: {this.state.data}</h4>
-
-				<button onClick={this.forceUpdateHandler}>force update</button>
-				<h4>Random number: {Math.random()}</h4>
-
-				<button onClick={this.findDomNodeHandler}>find dom node</button>
-				<div id="myDiv">Node</div>
+				<button onClick={this.setNewNumber}>Increment</button>
+				<Content myNumber={this.state.data}></Content>
 			</div>
 		);
+	}
+}
+
+class Content extends React.Component {
+
+	componentWillMount() {
+		alert('Component WILL MOUNT!')
+	}
+
+	componentDidMount() {
+		alert('Component DID MOUNT!')
+	}
+
+	componentWillReceiveProps(newProps) {
+		console.log('Component WILL RECIEVE PROPS!')
+	}
+
+	shouldComponentUpdate(newProps, newState) {
+		return true;
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		console.log('Component WILL UPDATE!');
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		console.log('Component DID UPDATE!')
+	}
+
+	componentWillUnmount() {
+		console.log('Component WILL UNMOUNT!')
+	}
+
+	render() {
+		return (
+			<h3>{this.props.myNumber}</h3>
+			)
 	}
 }
 
